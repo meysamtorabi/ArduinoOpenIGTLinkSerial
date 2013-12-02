@@ -266,8 +266,7 @@ int ReceiveTransform(igtl::Socket * socket, igtl::MessageHeader * header)
 
     wbuf[0] = matrix[0][3];
     {
-    // printf("i = %d\n",i);
-    bytes = write(serial,wbuf,1);
+        bytes = write(serial,wbuf,1);
     }
 
 

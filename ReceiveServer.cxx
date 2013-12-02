@@ -242,7 +242,7 @@ int ReceiveTransform(igtl::Socket * socket, igtl::MessageHeader * header)
 
     // Meysam Nov 29, 2013:
     unsigned char wbuf[1];
-    int bytes;//, i;
+    int bytes;
 
     serial = open(SERIALPORT,O_RDWR | O_NOCTTY);
     if (serial < 0)
@@ -251,24 +251,20 @@ int ReceiveTransform(igtl::Socket * socket, igtl::MessageHeader * header)
     memset(&serialConfig,0,sizeof(serialConfig));
     cfmakeraw(&serialConfig);
 
-    serialConfig.c_cflag = B9600;     // 9600 baud rate
-    serialConfig.c_cflag |= CS8;      // 8n1 (8bit, no parity, 1 stopbit)
+    serialConfig.c_cflag = B9600;     // 9600 baud rate (the same as Arduino)
+    serialConfig.c_cflag |= CS8;      
     serialConfig.c_cflag |= CLOCAL;   // Local connection, no modem contol
     serialConfig.c_cflag |= CREAD;    // Enable receiving characters
-
-    serialConfig.c_iflag = IGNPAR;    // Ignore bytes with parity errors
+    serialConfig.c_iflag = IGNPAR;    
     serialConfig.c_cc[VMIN] = 0;
     serialConfig.c_cc[VTIME] = 10;    // in deciseconds
-
     tcflush(serial,TCIOFLUSH);
     tcsetattr(serial,TCSANOW,&serialConfig);
 
-
-    wbuf[0] = matrix[0][3];
+    wbuf[0] = matrix[0][3]; // get the Value sent by OpenIGTLink
     {
         bytes = write(serial,wbuf,1);
     }
-
 
     //close(serial);
 
