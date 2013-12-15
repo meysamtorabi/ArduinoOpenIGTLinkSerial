@@ -1,4 +1,4 @@
-This code is taken from http://arduino.cc/en/Tutorial/PhysicalPixel
+// This code is taken from http://arduino.cc/en/Tutorial/PhysicalPixel
 
 
 const int ledPin = 9;     // The pin that the LED is attached to
